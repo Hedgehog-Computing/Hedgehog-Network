@@ -1,0 +1,12 @@
+function matrix2edgeSet(matrix){
+    // Convert a graph from matrix format into a 2D array of edge set [i,j], which represents the edge between i-th and j-th node
+    let ret = []
+    let n = matrix.length;
+    for (let x=0;x<n;x++){
+        for (let y=0;y<n;y++) {
+            if (x===y) continue;
+            if (matrix[x][y]===1) ret.push([...[x,y]])
+        }
+    }
+    return ret;
+}

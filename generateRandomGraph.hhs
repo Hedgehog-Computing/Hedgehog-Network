@@ -1,0 +1,22 @@
+function generateRamdomUndirectedGraph(N){
+
+    /*
+    Generate a random N-by-N 0-1 integer matrix X.
+
+    X[i][j] = X[j][i] = 1 which represents the edge between i-th and j-th  
+    All diagonal X[i][i] = 1
+
+    input: N
+    output: matrix X
+    */
+    let matrix = [...Array(N)].map(e => Array(N));
+    for (let i=0;i<N;i++) matrix[i][i]=1;
+    for (let x=0;x<N;x+=1){
+        for (let y=x+1;y<N;y+=1){
+            let val = 0;
+            if (Math.random()>=0.5) val = 1;
+            matrix [y][x] = val; matrix[x][y]=val;
+        }
+    }
+    return matrix;
+}

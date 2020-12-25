@@ -1,0 +1,74 @@
+function maxCliqueByBronKerbosch(edges) {
+    //Input: a set of edges representing undirected graph G = (V,E)
+    //Output: all max cliques of graph G using Bron-Kerbosch algorithm
+    //Reference:
+    //https://github.com/SeregPie/BronKerbosch
+    function Set_intersection(set, otherSet) {
+        let result = new Set();
+        otherSet.forEach(value => {
+            if (set.has(value)) {
+                result.add(value);
+            }
+        });
+        return result;
+    }
+    
+    function Set_difference(set, otherSet) {
+        let result = new Set(set);
+        otherSet.forEach(value => {
+            result.delete(value);
+        });
+        return result;
+    }
+    
+    function Set_union (set, otherSet) {
+        let result = new Set(set);
+        otherSet.forEach(value => {
+            result.add(value);
+        });
+        return result;
+    }
+
+    function bind_recursive(that) {
+        let recur = function(...args) {
+            return that.call(this, recur, ...args);
+        };
+        return recur;
+    }
+	edges = Array.from(edges);
+	let nodes = new Set();
+	edges.forEach(edge => {
+		nodes.add(edge[0]).add(edge[1]);
+	});
+	if (nodes.size < 2) {
+		return [];
+	}
+	let neighbors = new Map();
+	nodes.forEach(node => {
+		neighbors.set(node, new Set());
+	});
+	edges.forEach(edge => {
+		neighbors.get(edge[0]).add(edge[1]);
+		neighbors.get(edge[1]).add(edge[0]);
+	});
+	let cliques = [];
+	bind_recursive((recur, clique, candidates, excludedCandidates) => {
+		if (!candidates.size && !excludedCandidates.size) {
+			cliques.push(Array.from(clique));
+		}
+		let pivotNeighbors = new Set();
+		Set_union(candidates, excludedCandidates).forEach(candidate => {
+			let t = Set_intersection(neighbors.get(candidate), candidates);
+			if (t.size > pivotNeighbors.size) {
+				pivotNeighbors = t;
+			}
+		});
+		Set_difference(candidates, pivotNeighbors).forEach(candidate => {
+			let candidateNeighbors = neighbors.get(candidate);
+			recur((new Set(clique)).add(candidate), Set_intersection(candidates, candidateNeighbors), Set_intersection(excludedCandidates, candidateNeighbors));
+			candidates.delete(candidate);
+			excludedCandidates.add(candidate);
+		});
+	})(new Set(), nodes, new Set());
+	return cliques;
+}

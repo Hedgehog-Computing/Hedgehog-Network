@@ -1,0 +1,26 @@
+function complementUndirectedGraph(matrix){
+    /*
+    Generate a random N-by-N 0-1 integer matrix X.
+
+    Input: graph matrix X
+    Output: X', complement of graph matrix X
+
+    X'[i][j] = 1 - X[i][j]
+    All diagonal X'[i][j] = 1
+
+    input: graph matrix X
+    output: complement graph X'
+    */
+
+
+    let N = matrix.length;
+    let returnMatrix = [...Array(N)].map(e => Array(N));
+    for (let x=0;x<N;x+=1){
+        for (let y=0;y<N;y+=1){
+            if (x===y ) returnMatrix[x][y]=1;
+            else returnMatrix[x][y] = 1 - matrix[x][y];
+        }
+    }
+    return returnMatrix;
+
+}

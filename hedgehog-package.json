@@ -1,0 +1,4 @@
+{
+    "name":"Hedgehog-Network",
+    "includes" : ["generateRamdomUndirectedGraph", "complementGraph", "matrix2edgeSet", "maxCliqueByBronKerbosch", "maxOrderOfClique"]
+  }
