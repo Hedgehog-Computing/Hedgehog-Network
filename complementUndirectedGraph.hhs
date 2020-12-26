@@ -14,7 +14,7 @@ function complementUndirectedGraph(matrix){
 
 
     let N = matrix.length;
-    let returnMatrix = [...Array(N)].map(e => Array(N));
+    let returnMatrix = zeros(N).to2DArray();
     for (let x=0;x<N;x+=1){
         for (let y=0;y<N;y+=1){
             if (x===y ) returnMatrix[x][y]=1;
