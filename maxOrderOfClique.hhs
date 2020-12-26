@@ -1,7 +1,7 @@
 function maxOrderOfClique(edgeSet){
     // Input: a set of edges representing undirected graph G = (V,E)
     // Output: the max 
-    *import Hedgehog-Network:maxCliqueByBronKerbosch
+*import https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Network/main/maxCliqueByBronKerbosch.hhs
     let result = maxCliqueByBronKerbosch(edgeSet);
     let maxOrder = 0;
     for (let i=0;i<result.length;i++) if (result[i].length>maxOrder) maxOrder = result[i].length;
